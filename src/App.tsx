@@ -24,20 +24,20 @@ function throttle(func:any, delay: number) {
     };
 }
 
+// 存储当前正在执行的查询任务
 const pendingQueryTasks: Array<{
   cancel: () => void,
   keyword: string,
   taskIndex: number,
 }> = [];
-
 // 输入框中输入的最新的关键字
 let latestKeyword = '';
 let latestQueryIndex = 0;
+
 function App() {
     const [loading, setLoading] = useState(false);
     const [queryError, setQueryError] = useState(false);
     const [searchResult, setSearchResult] = useState<Array<{name: string, address: string}>>([]);
-
 
    function creatQueryTask(keyword: string) {
     const controller = new AbortController();
@@ -79,11 +79,14 @@ function App() {
         });
       }
     }
+
     function  cancel () {
       controller.abort();
     }
     return { run, cancel };
   }
+
+  // 处理查询任务
   async function handleRunQueryTask (taskObj:{
     run: () => Promise<{
       data: Array<{name: string, address: string}>,
@@ -94,7 +97,6 @@ function App() {
     cancel: () => void,
     keyword: string
     }) {
-    if (taskObj) {
       const { run, cancel, keyword, taskIndex} = taskObj;
       pendingQueryTasks.push({ cancel, keyword, taskIndex });
       setLoading(true);
@@ -123,9 +125,9 @@ function App() {
           pendingQueryTasks.splice(completedTaskIndex, 1);
         }
       }
-    }
   }
 
+  // 添加查询任务
  async function  addQueryTask(keyword: string, index: number = 0) {
    const { run, cancel } = creatQueryTask(keyword);
    await handleRunQueryTask({
