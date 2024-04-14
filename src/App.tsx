@@ -37,6 +37,7 @@ let latestQueryIndex = 0;
 function App() {
     const [loading, setLoading] = useState(false);
     const [queryError, setQueryError] = useState(false);
+  const [searchWords, setSearchWords] = useState('');
     const [searchResult, setSearchResult] = useState<Array<{name: string, address: string}>>([]);
 
    function creatQueryTask(keyword: string) {
@@ -106,6 +107,7 @@ function App() {
         setSearchResult(result.data);
       }
       if (latestKeyword === keyword && taskIndex === latestQueryIndex) {
+        setSearchWords(latestKeyword);
         // setLoading(false);
         if (pendingQueryTasks.length === 0) {
           return;
@@ -120,6 +122,7 @@ function App() {
         pendingQueryTasks.length = 0;
         latestQueryIndex = 0;
       } else {
+        setSearchWords(keyword);
         const completedTaskIndex = pendingQueryTasks.findIndex(item => item.keyword === keyword && item.taskIndex === taskIndex);
         if (completedTaskIndex >= 0) {
           pendingQueryTasks.splice(completedTaskIndex, 1);
@@ -197,7 +200,7 @@ function App() {
                        ) : (
 
                          <div className={'text-center text-gray-500 empty-hint'}>
-                           { latestKeyword === '' ? '无数据进行展示, 可输入关键字进行搜索' : `未查询到关键字"${latestKeyword}"相关数据` }
+                           { latestKeyword === '' ? '无数据进行展示, 可输入关键字进行搜索' : `未查询到关键字"${searchWords}"相关数据` }
                          </div>
                        )
                      }

@@ -20,14 +20,14 @@ app.get('/query',(req, res) => {
      return;
     }
     const result = listData.filter(item => item.name.includes(keyword));
-    setTimeout(() => {
-      res.status(200).send(result);
-      resolve(result);
-    }, 1000)
-  //     setTimeout(() => {
-  //       res.send(result);
-  //       resolve(result);
-  //     }, (Math.floor(Math.random() * 10) + 1 ) * 1000);
+    // setTimeout(() => {
+    //   res.status(200).send(result);
+    //   resolve(result);
+    // }, 1000)
+      setTimeout(() => {
+        res.send(result);
+        resolve(result);
+      }, (Math.floor(Math.random() * 10) + 1 ) * 1000);
   })
 
 })
