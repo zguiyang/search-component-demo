@@ -1,5 +1,9 @@
 # search-component-demo
 
+# Node
+
+- Node.js >= 14.15.0
+
 # Dev
 
 1. run `pnpm install`
@@ -8,6 +12,4 @@
 
 # test
 1. run `pnpm run test`
-
-## e2e test
-1. run `pnpm run playwright`
+2. run `pnpm run e2e`
