@@ -11,7 +11,7 @@
     "mock": "tsx  watch ./mock/api.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "playwright": "playwright test --ui"
+    "e2e": "playwright test --ui"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.10",
